@@ -1,0 +1,444 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : sans-serif;
+			color : white;
+			background-color : #21489e;
+			padding: 0.3em;
+		}
+		body {
+			font-family : verdana;
+		}
+		td, th {
+			padding: 0.5em;
+			text-align : center;
+			width : 18%;
+		}
+		th {
+			background-color : #A6CAF0;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+		}
+		
+		.DRC_summary_header {							
+			padding-bottom : 0.1em;
+			border : 0px solid black;							
+			width: 100%;
+                        align: right;
+                        
+		}
+
+		.DRC_summary_header_col1, 
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3
+		{
+			color : black;
+			font-size:150%;
+                        padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2: 0em;
+			border : 0px solid black;
+			width : auto;
+			vertical-align: top;
+			font-weight: bold;				
+		}
+		
+		.DRC_summary_header_col1 	
+		{		                       
+			text-align: right;
+                        width: auto;	
+		}
+
+		.DRC_summary_header_col2 	
+		{		
+			text-align: center;	
+		}
+
+		.DRC_summary_header_col3 	
+		{		
+			text-align: left;	
+		}
+
+
+		
+		.header_holder
+		{
+		Width = 100%;
+		border = 0px solid green;
+		padding = 0;
+		}
+		
+		
+		
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+                {
+			left:0;
+			top:0;
+			padding-top : 0.1em;			
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top
+
+		}
+		.front_matter {	
+			
+			margin-top: 5px;
+ 			margin-left: 0px;					 			
+ 			horizontal-align: left;
+		}
+				
+		
+		.front_matter_column1 {
+			width : 10em;	
+			text-align  : right;
+			padding-right:0.1em;
+			
+		}
+		
+		.front_matter_column2 {
+                        width: 0.1em;
+			align: center;
+			text-align : center;
+			margin-right  : 0.1em;	
+			margin-left   : 0.1em;
+		}
+		.front_matter_column3 {
+			width         : auto;  
+			text-align    : left;	
+			margin-right  : 0.5em;				
+		}
+		
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : right;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #EEEEE0 
+		}
+		tr.onmouseout_even { 
+			background-color : #F3F3E3   
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : lightYellow
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #008000 
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD13\Templates\AD-rgb_logo_223x64.gif
+		"><a href="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports" class="customize"><acronym title="dxpprocess://Client:SetupPreferences?Server=PCB|PageName=Reports">customize</acronym></a><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td Style="width:70%">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">16/11/2013</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">05:56:12 p.m.</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename</td>
+<td class="front_matter_column2">:</td>
+<td class="front_matter_column3"><a href="file:///C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc" class="file"><acronym title="C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc">C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td Style="Width:30%">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations</td>
+<td class="DRC_summary_header_col2">:</td>
+<td class="DRC_summary_header_col3" style="color : red">22</td></tr>
+</table>
+</td>
+</table>
+<hr><a name="IDASA0CX"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAEB0CX">Width Constraint (Min=15mil) (Max=25mil) (Preferred=20mil) ((InNet('3V3') OR InNet('GND') OR InNet('VCC')))</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAKB0CX">Clearance Constraint (Gap=10mil) (OnLayer('Top Layer')),(All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDACC0CX">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAIC0CX">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAOC0CX">Clearance Constraint (Gap=10mil) (OnLayer('Bottom Layer')),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAUC0CX">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDA0C0CX">Width Constraint (Min=12mil) (Max=30mil) (Preferred=15mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAAD0CX">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAGD0CX">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAMD0CX">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDASD0CX">Minimum Solder Mask Sliver (Gap=9mil) (All),(All)</a></td>
+<td class="column2">17</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDAUQ0CX">Silk To Solder Mask (Clearance=4mil) (IsPad),(All)</a></td>
+<td class="column2">3</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDAVR0CX">Silk to Silk (Clearance=1mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDA1R0CX">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDABS0CX">Clearance Constraint (Gap=7mil) ((HasFootprint('44A_M') OR HasFootprint('MSOP-MS8_L') OR HasFootprint('SOIC8WA_N') Or HasFootprint('SOT-23-OT5_M'))),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">22</td>
+</tr>
+</table><br><hr><a name="IDAKB0CX"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Clearance Constraint (Gap=10mil) (OnLayer('Top Layer')),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4328.425mil|Location2.X=4470.157mil|Location1.Y=1905.827mil|Location2.Y=2134.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4328.425mil|Location2.X=4470.157mil|Location1.Y=1905.827mil|Location2.Y=2134.173mil|Absolute=True">Pad J2-(1469.291mil,295mil)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4245.685mil|Location2.X=4403.291mil|Location1.Y=1801.433mil|Location2.Y=1907.858mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4245.685mil|Location2.X=4403.291mil|Location1.Y=1801.433mil|Location2.Y=1907.858mil|Absolute=True">Pad J2-Shd(1394.488mil,129.646mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4328.425mil|Location2.X=4470.157mil|Location1.Y=1905.827mil|Location2.Y=2134.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4328.425mil|Location2.X=4470.157mil|Location1.Y=1905.827mil|Location2.Y=2134.173mil|Absolute=True">Pad J2-(1469.291mil,295mil)  Keep-Out Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4245.685mil|Location2.X=4403.291mil|Location1.Y=2132.142mil|Location2.Y=2238.567mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4245.685mil|Location2.X=4403.291mil|Location1.Y=2132.142mil|Location2.Y=2238.567mil|Absolute=True">Pad J2-Shd(1394.488mil,460.354mil)  Top Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDASD0CX"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Minimum Solder Mask Sliver (Gap=9mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4107.654mil|Location2.X=4166.835mil|Location1.Y=3002.22mil|Location2.Y=3037.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4107.654mil|Location2.X=4166.835mil|Location1.Y=3002.22mil|Location2.Y=3037.78mil|Absolute=True">Pad U4-2(1207.244mil,1295mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4107.654mil|Location2.X=4166.835mil|Location1.Y=2964.819mil|Location2.Y=3000.378mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4107.654mil|Location2.X=4166.835mil|Location1.Y=2964.819mil|Location2.Y=3000.378mil|Absolute=True">Pad U4-1(1207.244mil,1257.598mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4107.654mil|Location2.X=4166.835mil|Location1.Y=3039.622mil|Location2.Y=3075.181mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4107.654mil|Location2.X=4166.835mil|Location1.Y=3039.622mil|Location2.Y=3075.181mil|Absolute=True">Pad U4-3(1207.244mil,1332.401mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4107.654mil|Location2.X=4166.835mil|Location1.Y=3002.22mil|Location2.Y=3037.78mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4107.654mil|Location2.X=4166.835mil|Location1.Y=3002.22mil|Location2.Y=3037.78mil|Absolute=True">Pad U4-2(1207.244mil,1295mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3244.347mil|Location2.X=3295.653mil|Location1.Y=2034.189mil|Location2.Y=2065.811mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3244.347mil|Location2.X=3295.653mil|Location1.Y=2034.189mil|Location2.Y=2065.811mil|Absolute=True">Pad Y1-1(340mil,325mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3244.347mil|Location2.X=3295.653mil|Location1.Y=2069.622mil|Location2.Y=2101.244mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3244.347mil|Location2.X=3295.653mil|Location1.Y=2069.622mil|Location2.Y=2101.244mil|Absolute=True">Pad Y1-2(340mil,360.433mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=2037.654mil|Location2.Y=2065.339mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=2037.654mil|Location2.Y=2065.339mil|Absolute=True">Pad J2-4(1300mil,326.496mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=2006.158mil|Location2.Y=2033.842mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=2006.158mil|Location2.Y=2033.842mil|Absolute=True">Pad J2-3(1300mil,295mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=1974.661mil|Location2.Y=2002.346mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=1974.661mil|Location2.Y=2002.346mil|Absolute=True">Pad J2-2(1300mil,263.504mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=2006.158mil|Location2.Y=2033.842mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=2006.158mil|Location2.Y=2033.842mil|Absolute=True">Pad J2-3(1300mil,295mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=2069.15mil|Location2.Y=2096.835mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=2069.15mil|Location2.Y=2096.835mil|Absolute=True">Pad J2-5(1300mil,357.992mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=2037.654mil|Location2.Y=2065.339mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=2037.654mil|Location2.Y=2065.339mil|Absolute=True">Pad J2-4(1300mil,326.496mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=1943.165mil|Location2.Y=1970.85mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=1943.165mil|Location2.Y=1970.85mil|Absolute=True">Pad J2-1(1300mil,232.008mil)  Top Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=1974.661mil|Location2.Y=2002.346mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4198.441mil|Location2.X=4261.559mil|Location1.Y=1974.661mil|Location2.Y=2002.346mil|Absolute=True">Pad J2-2(1300mil,263.504mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3701mil|Location2.X=3759mil|Location1.Y=2001mil|Location2.Y=2059mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3701mil|Location2.X=3759mil|Location1.Y=2001mil|Location2.Y=2059mil|Absolute=True">Via (800mil,305mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3744.5mil|Location2.X=3835.5mil|Location1.Y=1945.5mil|Location2.Y=2008.5mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3744.5mil|Location2.X=3835.5mil|Location1.Y=1945.5mil|Location2.Y=2008.5mil|Absolute=True">Pad SW1-2(860mil,252mil)  Top Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2503.598mil|Location2.Y=2543.094mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2503.598mil|Location2.Y=2543.094mil|Absolute=True">Pad J3-7(762.362mil,798.346mil)  Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2546.905mil|Location2.Y=2586.401mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2546.905mil|Location2.Y=2586.401mil|Absolute=True">Pad J3-8(762.362mil,841.654mil)  Bottom Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2460.291mil|Location2.Y=2499.787mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2460.291mil|Location2.Y=2499.787mil|Absolute=True">Pad J3-6(762.362mil,755.039mil)  Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2503.598mil|Location2.Y=2543.094mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2503.598mil|Location2.Y=2543.094mil|Absolute=True">Pad J3-7(762.362mil,798.346mil)  Bottom Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2416.984mil|Location2.Y=2456.48mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2416.984mil|Location2.Y=2456.48mil|Absolute=True">Pad J3-5(762.362mil,711.732mil)  Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2460.291mil|Location2.Y=2499.787mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2460.291mil|Location2.Y=2499.787mil|Absolute=True">Pad J3-6(762.362mil,755.039mil)  Bottom Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2373.677mil|Location2.Y=2413.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2373.677mil|Location2.Y=2413.173mil|Absolute=True">Pad J3-4(762.362mil,668.425mil)  Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2416.984mil|Location2.Y=2456.48mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2416.984mil|Location2.Y=2456.48mil|Absolute=True">Pad J3-5(762.362mil,711.732mil)  Bottom Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2330.37mil|Location2.Y=2369.866mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2330.37mil|Location2.Y=2369.866mil|Absolute=True">Pad J3-3(762.362mil,625.118mil)  Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2373.677mil|Location2.Y=2413.173mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2373.677mil|Location2.Y=2413.173mil|Absolute=True">Pad J3-4(762.362mil,668.425mil)  Bottom Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2287.063mil|Location2.Y=2326.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2287.063mil|Location2.Y=2326.559mil|Absolute=True">Pad J3-2(762.362mil,581.811mil)  Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2330.37mil|Location2.Y=2369.866mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2330.37mil|Location2.Y=2369.866mil|Absolute=True">Pad J3-3(762.362mil,625.118mil)  Bottom Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2243.756mil|Location2.Y=2283.252mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2243.756mil|Location2.Y=2283.252mil|Absolute=True">Pad J3-1(762.362mil,538.504mil)  Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2287.063mil|Location2.Y=2326.559mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3658.835mil|Location2.X=3725.89mil|Location1.Y=2287.063mil|Location2.Y=2326.559mil|Absolute=True">Pad J3-2(762.362mil,581.811mil)  Bottom Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3241mil|Location2.X=3299mil|Location1.Y=2391mil|Location2.Y=2449mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3241mil|Location2.X=3299mil|Location1.Y=2391mil|Location2.Y=2449mil|Absolute=True">Via (340mil,695mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3277.299mil|Location2.X=3322.701mil|Location1.Y=2337.811mil|Location2.Y=2385.181mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3277.299mil|Location2.X=3322.701mil|Location1.Y=2337.811mil|Location2.Y=2385.181mil|Absolute=True">Pad C12-1(370mil,636.496mil)  Bottom Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3141mil|Location2.X=3199mil|Location1.Y=1891mil|Location2.Y=1949mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3141mil|Location2.X=3199mil|Location1.Y=1891mil|Location2.Y=1949mil|Absolute=True">Via (240mil,195mil) Top Layer to Bottom Layer</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3082.457mil|Location2.X=3137.701mil|Location1.Y=1823.008mil|Location2.Y=1956.992mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3082.457mil|Location2.X=3137.701mil|Location1.Y=1823.008mil|Location2.Y=1956.992mil|Absolute=True">Pad C8-1(180.079mil,165mil)  Bottom Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br><a name="IDAUQ0CX"><table>
+<tr>
+<th style="text-align : left" colspan="2" class="rule">Silk To Solder Mask (Clearance=4mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3624.054mil|Location2.X=3665.527mil|Location1.Y=2140.292mil|Location2.Y=2235mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3624.054mil|Location2.X=3665.527mil|Location1.Y=2140.292mil|Location2.Y=2235mil|Absolute=True">Text "R10" (730mil,505mil)  Bottom Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3546.63mil|Location2.X=3633.37mil|Location1.Y=2137.457mil|Location2.Y=2202.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3546.63mil|Location2.X=3633.37mil|Location1.Y=2137.457mil|Location2.Y=2202.543mil|Absolute=True">Pad J3-G4(660mil,445mil)  Bottom Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4011.771mil|Location2.X=4076mil|Location1.Y=2763.474mil|Location2.Y=2804.947mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4011.771mil|Location2.X=4076mil|Location1.Y=2763.474mil|Location2.Y=2804.947mil|Absolute=True">Text "J3" (1141mil,1044mil)  Bottom Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4029.071mil|Location2.X=4170.929mil|Location1.Y=2772.693mil|Location2.Y=2839.748mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=4029.071mil|Location2.X=4170.929mil|Location1.Y=2772.693mil|Location2.Y=2839.748mil|Absolute=True">Pad J1-(1170mil,1081.22mil)  Bottom Layer</acronym></a></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td style="width:50%; text-align:left" class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3297.351mil|Location2.X=3392mil|Location1.Y=2671mil|Location2.Y=2711.947mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3297.351mil|Location2.X=3392mil|Location1.Y=2671mil|Location2.Y=2711.947mil|Absolute=True">Text "R12" (457mil,951mil)  Bottom Overlay</acronym></a></td>
+<td style="width:50%; text-align:left" class="column2"><a href="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3267.811mil|Location2.X=3315.181mil|Location1.Y=2667.299mil|Location2.Y=2712.701mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=3267.811mil|Location2.X=3315.181mil|Location1.Y=2667.299mil|Location2.Y=2712.701mil|Absolute=True">Pad C10-1(361.496mil,965mil)  Bottom Layer</acronym></a></td>
+</tr>
+</table></a><a href="#top">Back to top</a><br><br></body>
+</html>

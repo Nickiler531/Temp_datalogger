@@ -1,0 +1,13 @@
+Output: NC Drill Files
+Type  : NC Drill
+From  : Project [Temp_datalogger.PrjPcb]
+   Generated File[Temp_datalogger.TXT]
+   Generated File[Temp_datalogger-BoardEdgeRout.TXT]
+   Generated File[Temp_datalogger.LDP]
+   Generated File[Temp_datalogger.DRR]
+
+
+Files Generated   : 4
+Documents Printed : 0
+
+Finished Output Generation At 10:22:52 p.m. On 17/11/2013

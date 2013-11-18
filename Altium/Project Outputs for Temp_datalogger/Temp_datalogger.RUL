@@ -1,0 +1,8 @@
+DRC Rules Export File for PCB: C:\Users\Nick\Documents\GitHub\Temp_datalogger\Altium\Temp_datalogger.PcbDoc
+RuleKind=Clearance|RuleName=clearance_fine_pitch|Scope=Board|Minimum=7.00
+RuleKind=SolderMaskExpansion|RuleName=SolderMaskExpansion|Scope=Board|Minimum=4.00
+RuleKind=Width|RuleName=Width|Scope=Board|Minimum=12.00
+RuleKind=Clearance|RuleName=CLEARANCE_BOTTOM|Scope=Board|Minimum=10.00
+RuleKind=ShortCircuit|RuleName=ShortCircuit|Scope=Board|Allowed=0
+RuleKind=Clearance|RuleName=CLEARANCE_TOP|Scope=Board|Minimum=10.00
+RuleKind=Width|RuleName=power|Scope=Board|Minimum=15.00
