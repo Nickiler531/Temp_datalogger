@@ -1,13 +1,9 @@
-Output: NC Drill Files
-Type  : NC Drill
-From  : Project [Temp_datalogger.PrjPcb]
-   Generated File[Temp_datalogger.TXT]
-   Generated File[Temp_datalogger-BoardEdgeRout.TXT]
-   Generated File[Temp_datalogger.LDP]
-   Generated File[Temp_datalogger.DRR]
+Output: Bill of Materials
+Type  : BOM
+From  : Variant [[No Variations]] of Project [Temp_datalogger.PrjPcb]
 
 
-Files Generated   : 4
+Files Generated   : 0
 Documents Printed : 0
 
-Finished Output Generation At 10:22:52 p.m. On 17/11/2013
+Finished Output Generation At 09:34:15 a.m. On 19/11/2013

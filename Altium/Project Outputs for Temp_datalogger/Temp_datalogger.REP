@@ -45,12 +45,12 @@ Generating : Bottom Layer
 
 
 Used DCodes :
+    D10
     D11
-    D12
     D13
-    D19
-    D22
-    D26
+    D15
+    D16
+    D20
     D28
     D29
     D30
@@ -124,9 +124,9 @@ Generating : Bottom Solder
 
 Used DCodes :
     D44
-    D50
-    D53
-    D57
+    D46
+    D47
+    D51
     D59
     D60
     D61
